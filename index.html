@@ -1,0 +1,87 @@
+<!--
+  Project: Task/Project Tracker (Kanban Board)
+  Author: Bhavya Patel
+  Topic: Agile Software Development - Task Tracking with Kanban Boards
+  Description: A simple Kanban-style board where users can create tasks,
+  set a due date, and move tasks between "To Do", "In Progress", and "Done"
+  columns. This demonstrates core Agile concepts like visualizing workflow
+  and tracking task status.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskBoard — Kanban Tracker by Bhavya Patel</title>
+
+  <!-- Google Fonts: Space Grotesk for headings, IBM Plex Sans for body text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Page header: title + short description of the project -->
+  <header class="board-header">
+    <div class="header-inner">
+      <h1>TaskBoard</h1>
+      <p class="subtitle">A Kanban tracker for planning and running Agile-style sprints.</p>
+    </div>
+  </header>
+
+  <!-- Form to add a new task: title, due date, and starting status -->
+  <section class="add-task-panel">
+    <form id="task-form">
+      <input
+        type="text"
+        id="task-title"
+        placeholder="Task name (e.g. Design login page)"
+        required
+      />
+      <input type="date" id="task-due" />
+      <select id="task-status">
+        <option value="todo">To Do</option>
+        <option value="inprogress">In Progress</option>
+        <option value="done">Done</option>
+      </select>
+      <button type="submit">Add task</button>
+    </form>
+  </section>
+
+  <!-- The three Kanban columns: To Do / In Progress / Done -->
+  <main class="board" id="board">
+
+    <section class="column" data-status="todo">
+      <div class="column-head">
+        <h2>To Do</h2>
+        <span class="count" id="count-todo">0</span>
+      </div>
+      <div class="card-list" id="list-todo"></div>
+    </section>
+
+    <section class="column" data-status="inprogress">
+      <div class="column-head">
+        <h2>In Progress</h2>
+        <span class="count" id="count-inprogress">0</span>
+      </div>
+      <div class="card-list" id="list-inprogress"></div>
+    </section>
+
+    <section class="column" data-status="done">
+      <div class="column-head">
+        <h2>Done</h2>
+        <span class="count" id="count-done">0</span>
+      </div>
+      <div class="card-list" id="list-done"></div>
+    </section>
+
+  </main>
+
+  <footer class="board-footer">
+    <p>Built by Bhavya Patel — Software Engineering: Agile Task Tracking demo</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

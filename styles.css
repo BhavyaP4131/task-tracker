@@ -1,0 +1,233 @@
+/*
+  Project: Task/Project Tracker (Kanban Board)
+  Author: Bhavya Patel
+  Topic: Agile Software Development - Task Tracking with Kanban Boards
+
+  Design idea: the board looks like a drafting sheet with pinned index
+  cards. Each column is a lane, and each card has a colored left edge
+  that matches its status instead of a generic rounded "SaaS card" look.
+*/
+
+:root {
+  --paper: #f6f4ef;
+  --ink: #24303d;
+  --slate: #7c8798;
+  --todo: #7c8798;
+  --inprogress: #e0983b;
+  --done: #4f8f6b;
+  --card-bg: #ffffff;
+  --border: #d8d3c7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 32px 32px;
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+h1, h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  margin: 0;
+}
+
+/* ---------- Header ---------- */
+.board-header {
+  border-bottom: 2px solid var(--ink);
+  background: var(--paper);
+}
+
+.header-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 28px 20px 20px;
+}
+
+.board-header h1 {
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+  color: var(--slate);
+  font-size: 0.95rem;
+}
+
+/* ---------- Add task panel ---------- */
+.add-task-panel {
+  max-width: 1000px;
+  margin: 20px auto 0;
+  padding: 0 20px;
+}
+
+#task-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--ink);
+  padding: 14px;
+}
+
+#task-form input[type="text"] {
+  flex: 1;
+  min-width: 200px;
+}
+
+#task-form input,
+#task-form select {
+  padding: 9px 10px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+#task-form button {
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  padding: 9px 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#task-form button:hover {
+  background: #10181f;
+}
+
+/* ---------- Board / columns ---------- */
+.board {
+  max-width: 1000px;
+  margin: 20px auto 40px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.column {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px dashed var(--ink);
+  min-height: 320px;
+  padding: 12px;
+}
+
+.column-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+.column-head h2 {
+  font-size: 1.05rem;
+}
+
+.count {
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 60px;
+}
+
+/* Highlight a column while a card is being dragged over it */
+.card-list.drag-over {
+  outline: 2px dashed var(--slate);
+  outline-offset: 4px;
+}
+
+/* ---------- Task card ---------- */
+.task-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--todo);
+  padding: 10px 12px;
+  cursor: grab;
+  box-shadow: 2px 2px 0 rgba(36, 48, 61, 0.06);
+}
+
+.task-card[data-status="inprogress"] {
+  border-left-color: var(--inprogress);
+}
+
+.task-card[data-status="done"] {
+  border-left-color: var(--done);
+}
+
+.task-card.dragging {
+  opacity: 0.4;
+}
+
+.task-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0 0 6px;
+}
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--slate);
+}
+
+.task-due.overdue {
+  color: #b5493a;
+  font-weight: 600;
+}
+
+.task-delete {
+  background: none;
+  border: none;
+  color: var(--slate);
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.task-delete:hover {
+  color: #b5493a;
+}
+
+.empty-hint {
+  color: var(--slate);
+  font-size: 0.82rem;
+  font-style: italic;
+}
+
+/* ---------- Footer ---------- */
+.board-footer {
+  text-align: center;
+  color: var(--slate);
+  font-size: 0.8rem;
+  padding: 20px 0 30px;
+}
+
+/* ---------- Responsive: stack columns on small screens ---------- */
+@media (max-width: 720px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+}
