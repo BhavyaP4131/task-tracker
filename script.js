@@ -81,6 +81,16 @@ card.innerHTML = `
   card.querySelector(".task-title").textContent = task.title;
   card.querySelector(".task-due").textContent = dueLabel;
 
+  // Edit button lets the user rename the task
+  card.querySelector(".task-edit").addEventListener("click", () => {
+    const newTitle = prompt("Edit task name:", task.title);
+    if (newTitle && newTitle.trim()) {
+      task.title = newTitle.trim();
+      saveTasks();
+      render();
+    }
+  });
+
   // Delete button removes this task from the array and re-renders
   card.querySelector(".task-delete").addEventListener("click", () => {
     tasks = tasks.filter((t) => t.id !== task.id);
