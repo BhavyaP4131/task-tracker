@@ -66,13 +66,16 @@ function createCardElement(task) {
     ? `Due ${task.due}`
     : "No due date";
 
-  card.innerHTML = `
+ card.innerHTML = `
     <p class="task-title"></p>
     <div class="task-meta">
       <span class="task-due ${overdue ? "overdue" : ""}"></span>
+      <button class="task-edit" title="Edit task">✎</button>
       <button class="task-delete" title="Delete task">✕</button>
     </div>
   `;
+
+  
 
   // Set text content this way (not innerHTML) to avoid any HTML injection
   // issues if a user types special characters into the task title
